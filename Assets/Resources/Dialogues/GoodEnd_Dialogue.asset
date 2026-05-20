@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4938916a9d840437b97bab80320d1bbb, type: 3}
+  m_Name: GoodEnd_Dialogue
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: "\uB3C4\uC724"
+    text: "\uC801\uC751...? \uCD5C\uBBFC\uC7AC, \uB108 \uC9C0\uAE08 \uADF8\uAC78
+      \uB9D0\uC774\uB77C\uACE0 \uD574? \uB124\uAC00 \uB098\uD55C\uD14C \uC900 \uAC70
+      \uD3C9\uBC94\uD55C \uC57D \uC544\uB2C8\uC796\uC544. \uB9C8\uC57D\uC774\uC796\uC544!"
+    portrait: {fileID: 0}
+    emotion: 7
+    isMonologue: 0
+  - speaker: "\uBBFC\uC7AC"
+    text: "\uC57C, \uAC15\uB3C4\uC724, \uB108\uB3C4 \uC990\uACBC\uC73C\uBA74\uC11C
+      \uC65C \uC774\uC81C \uC640\uC11C \uC120\uBE44\uC9C8\uC774\uC57C? \uADF8\uB0E5
+      \uC870\uC6A9\uD788 \uAC00\uC790."
+    portrait: {fileID: 0}
+    emotion: 6
+    isMonologue: 0
+  - speaker: "\uB3C4\uC724"
+    text: "\uB410\uC5B4. \uB2E4\uC2DC\uB294 \uB0B4 \uC55E\uC5D0 \uB098\uD0C0\uB098\uC9C0
+      \uB9C8. \uB0B4 \uC190\uC73C\uB85C \uB110 \uACBD\uCC30\uC5D0 \uB118\uAE30\uAE30
+      \uC804\uC5D0."
+    portrait: {fileID: 0}
+    emotion: 7
+    isMonologue: 0
+  - speaker: "\uC11C\uC544"
+    text: "\uB3C4\uC724\uC544, \uB098... \uC815\uB9D0 \uBB34\uC11C\uC6CC. \uB098
+      \uB2E4\uC2DC \uC608\uC804\uC73C\uB85C \uB3CC\uC544\uAC08 \uC218 \uC788\uC744\uAE4C?"
+    portrait: {fileID: 0}
+    emotion: 2
+    isMonologue: 0
+  - speaker: "\uC11C\uC544"
+    text: "\uC751, \uB3CC\uC544\uAC08 \uC218 \uC788\uC5B4. \uB0B4\uAC00 \uC606\uC5D0
+      \uC788\uC744\uAC8C. \uC6B0\uB9AC \uAC19\uC774 \uC774\uACA8\uB0B4\uC790."
+    portrait: {fileID: 0}
+    emotion: 1
+    isMonologue: 0
+  choices: []

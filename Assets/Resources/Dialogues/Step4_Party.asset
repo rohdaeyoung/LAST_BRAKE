@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4938916a9d840437b97bab80320d1bbb, type: 3}
+  m_Name: Step4_Party
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: "\uD558\uC900"
+    text: "\uC640, \uAC15\uB3C4\uC724! \uC544\uAE4C \uB0AE\uAE4C\uC9C0\uB9CC \uD574\uB3C4
+      \uC2DC\uCCB4 \uAC19\uB354\uB2C8\uB9CC, \uC9C0\uAE08\uC740 \uC5BC\uAD74\uC5D0\uC11C
+      \uAD11\uC774 \uB09C\uB2E4? \uADF8 \uC57D \uC815\uCCB4\uAC00 \uBB50\uC57C? \uB098\uB3C4
+      \uC2DC\uD5D8 \uAE30\uAC04\uC5D0 \uC880 \uBA39\uAC8C!"
+    portrait: {fileID: 0}
+    emotion: 1
+    isMonologue: 0
+  - speaker: "\uC11C\uC544"
+    text: "\uB3C4\uC724\uC544, \uB108 \uC9C4\uC9DC \uAD1C\uCC2E\uC740 \uAC70 \uB9DE\uC9C0?
+      \uC5B4\uC81C\uB294 \uB108 \uC228\uC18C\uB9AC\uB3C4 \uC774\uC0C1\uD558\uACE0
+      \uC190\uB3C4 \uC5C4\uCCAD \uB5A8\uC5B4\uC11C \uB098... \uC9C4\uC9DC \uC751\uAE09\uC2E4
+      \uBD88\uB7EC\uC57C \uD558\uB098 \uACE0\uBBFC\uD588\uB2E8 \uB9D0\uC774\uC57C."
+    portrait: {fileID: 0}
+    emotion: 2
+    isMonologue: 0
+  - speaker: "\uBBFC\uC7AC"
+    text: "\uB3C4\uC724\uC544, \uC624\uB298 \uD615\uC774 \uC81C\uB300\uB85C \uB41C
+      \uACF3 \uD55C \uAD70\uB370 \uB354 \uB6AB\uC5B4\uB1A8\uC5B4. \uC5B4\uC81C\uBCF4\uB2E4
+      \uBD84\uC704\uAE30 \uD6E8\uC52C \uAE54\uB054\uD558\uACE0 \uBB3C \uC88B\uC740
+      \uB370\uB2C8\uAE4C, \uB531 \uC624\uB298\uAE4C\uC9C0\uB9CC \uD654\uB048\uD558\uAC8C
+      \uB2EC\uB9AC\uACE0 \uB0B4\uC77C\uBD80\uD130 \uAC13\uC0DD \uC0AC\uB294 \uAC70\uB2E4.
+      \uC5B4\uB54C?"
+    portrait: {fileID: 0}
+    emotion: 6
+    isMonologue: 0
+  - speaker: "\uB3C4\uC724"
+    text: "\uC0AC\uC2E4 \uBAB8\uC774 \uC880 \uC774\uC0C1\uD560 \uC815\uB3C4\uB85C
+      \uAC00\uBCCD\uAE34 \uD55C\uB370... \uC5B4\uC81C\uC758 \uADF8 \uB054\uCC0D\uD55C
+      \uAE30\uBD84\uC774 \uC0AC\uB77C\uC9C0\uB2C8\uAE4C \uBB50\uB4E0 \uD560 \uC218
+      \uC788\uC744 \uAC83 \uAC19\uC740 \uC790\uC2E0\uAC10\uC774 \uC0DD\uACA8."
+    portrait: {fileID: 0}
+    emotion: 1
+    isMonologue: 1
+  choices:
+  - label: "\uBBFC\uC7AC \uD615 \uB9D0\uC774 \uB9DE\uC544\uC694. \uC5B4\uC81C\uB294
+      \uADF8\uB0E5 \uC6B4\uC774 \uC548 \uC88B\uC558\uB358 \uAC70\uACE0, \uC624\uB298\uC740
+      \uC81C\uAC00 \uBD84\uC704\uAE30 \uC81C\uB300\uB85C \uB744\uC6CC\uBCFC\uAC8C\uC694!
+      \uB2E4\uB4E4 \uB098\uAC00\uC790!"
+    intDelta: -10
+    riskDelta: 10
+    addictDelta: 10
+    nextScene: 05_Step5_Collapse
+    isForcedBad: 0
+    requiresMinINT: 0
+    minINTValue: 0
+  - label: "\uD615\uC774 \uC900 \uC57D \uB355\uBD84\uC5D0 \uBAB8 \uC0C1\uD0DC \uC644\uC804
+      \uCD5C\uC0C1\uC774\uC5D0\uC694. \uC624\uB298 \uC220 \uC5C4\uCCAD \uB9C8\uC154\uB3C4
+      \uC774 \uC57D\uB9CC \uC788\uC73C\uBA74 \uBB34\uC11C\uC6B8 \uAC8C \uC5C6\uB124\uC694.
+      \uAC00\uC694!"
+    intDelta: -20
+    riskDelta: 15
+    addictDelta: 25
+    nextScene: 05_Step5_Collapse
+    isForcedBad: 1
+    requiresMinINT: 0
+    minINTValue: 0
+  - label: "\uC5B4\uC81C \uADF8 \uC774\uC0C1\uD55C \uACE0\uC591\uAC10\uC774 \uB2E4\uC2DC
+      \uB290\uAEF4\uC9C8\uAE4C \uBB34\uC11C\uC6E0\uC9C0\uB9CC... \uC0AC\uC2E4 \uADF8\uB7F0
+      \uAE30\uBD84\uC740 \uCC98\uC74C\uC774\uC5C8\uC5B4. \uD55C \uBC88\uB9CC \uB354
+      \uB290\uAEF4\uBCF4\uACE0 \uC2F6\uC5B4."
+    intDelta: -15
+    riskDelta: 10
+    addictDelta: 30
+    nextScene: 05_Step5_Collapse
+    isForcedBad: 1
+    requiresMinINT: 0
+    minINTValue: 0

@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4938916a9d840437b97bab80320d1bbb, type: 3}
+  m_Name: Step1_Dialogue
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: "\uD558\uC900"
+    text: "\uC57C, \uAC15\uB3C4\uC724! \uB108 \uC544\uAE4C \uACFC \uC8FC\uC810\uC5D0\uC11C
+      \uC5F0\uC608\uC778 \uC62C \uB54C\uB9CC \uD574\uB3C4 \uB0A0\uC544\uB2E4\uB2C8\uB354\uB2C8
+      \uC65C \uBC8C\uC368 \uB208\uC774 \uD480\uB838\uB0D0? \uC624\uB298 \uCD95\uC81C
+      \uB9C8\uC9C0\uB9C9 \uB0A0\uC774\uB77C\uACE0 \uC774\uB300\uB85C \uC9D1 \uAC00\uBA74
+      \uBCD1\uB098, \uC784\uB9C8!"
+    portrait: {fileID: 0}
+    emotion: 1
+    isMonologue: 0
+  - speaker: "\uB3C4\uC724"
+    text: "\uC544... \uBA38\uB9AC \uC9C4\uC9DC \uAE68\uC9C8 \uAC83 \uAC19\uC544.
+      \uC544\uAE4C \uC18C\uC8FC\uB791 \uB9E5\uC8FC\uB791 \uB9C9 \uC11E\uC5B4 \uB9C8\uC154\uC11C
+      \uADF8\uB7F0\uAC00... \uC18D\uB3C4 \uC548 \uC88B\uB124."
+    portrait: {fileID: 0}
+    emotion: 3
+    isMonologue: 0
+  - speaker: "\uC11C\uC544"
+    text: "\uBC15\uD558\uC900, \uB108 \uB3C4\uC724\uC774 \uAD34\uB86D\uD788\uC9C0
+      \uB9C8. \uB3C4\uC724\uC544, \uB108 \uC0C1\uD0DC \uC9C4\uC9DC \uC548 \uC88B\uC544
+      \uBCF4\uC5EC. \uADF8\uB0E5 \uC9C0\uAE08\uC774\uB77C\uB3C4 \uB0B4\uAC00 \uD0DD\uC2DC
+      \uC7A1\uC544\uC904 \uD14C\uB2C8\uAE4C \uB4E4\uC5B4\uAC08\uB798?"
+    portrait: {fileID: 0}
+    emotion: 2
+    isMonologue: 0
+  - speaker: "\uBBFC\uC7AC"
+    text: "\uC11C\uC544 \uB10C \uB9E4\uBC88 \uBD84\uC704\uAE30\uB97C \uADF8\uB807\uAC8C
+      \uB04A\uB354\uB77C. \uB3C4\uC724\uC544, \uD615\uC774 \uAE30\uAC00 \uB9C9\uD78C
+      \uACF3 \uC544\uB294\uB370 \uAC70\uAE30 \uAC08\uB798? \uAC70\uAE30 \uB178\uB798
+      \uD55C \uACE1\uB9CC \uB4E4\uC5B4\uB3C4 \uD53C\uACE4\uD55C \uAC70 \uC2F9 \uAC00\uC2DC\uACE0
+      \uC138\uC0C1\uC774 \uB2E4 \uB124 \uAC70\uCC98\uB7FC \uBCF4\uC77C\uAC78?"
+    portrait: {fileID: 0}
+    emotion: 6
+    isMonologue: 0
+  - speaker: "\uB3C4\uC724"
+    text: "\uD53C\uACE4\uD55C \uAC8C \uAC00\uC2E0\uB2E4\uACE0? \uADF8\uB7F0 \uAC8C
+      \uC5B4\uB528\uC5B4..."
+    portrait: {fileID: 0}
+    emotion: 0
+    isMonologue: 0
+  - speaker: "\uBBFC\uC7AC"
+    text: "\uD615 \uBBFF\uC5B4\uBD10. \uC778\uC0DD \uC9E7\uC544. \uC624\uB298 \uADF8\uB0E5
+      \uBBF8\uCCD0\uBCF4\uB294 \uAC70\uC57C. \uC790, \uAC00\uC790!"
+    portrait: {fileID: 0}
+    emotion: 6
+    isMonologue: 0
+  choices:
+  - label: "\uC544, \uBA38\uB9AC \uC544\uD504\uB2C8\uAE4C \uADF8\uB0E5 \uC9D1\uC5D0
+      \uAC08\uAC8C\uC694."
+    intDelta: 10
+    riskDelta: -5
+    addictDelta: 0
+    nextScene: 02_Step2_Club
+    isForcedBad: 0
+    requiresMinINT: 0
+    minINTValue: 0
+  - label: "\uADF8\uB798... \uC7A0\uAE50\uB9CC \uAC00\uBCFC\uAE4C?"
+    intDelta: -10
+    riskDelta: 15
+    addictDelta: 5
+    nextScene: 02_Step2_Club
+    isForcedBad: 0
+    requiresMinINT: 0
+    minINTValue: 0
