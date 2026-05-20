@@ -35,14 +35,15 @@ public class BadEndSequence : MonoBehaviour
         if (DialogueManager.Instance != null && endingDialogue != null && endingDialogue.Length > 0)
             DialogueManager.Instance.StartSequence(endingDialogue, OnEndingDialogueComplete);
         else
-            StartCoroutine(BadEndRoutine());
+            StartCoroutine(TransitionToFourthWall());
     }
 
-    public void OnEndingDialogueComplete() => StartCoroutine(BadEndRoutine());
+    public void OnEndingDialogueComplete() => StartCoroutine(TransitionToFourthWall());
 
-    private IEnumerator BadEndRoutine()
+    // 07_GoodEnd와 동일한 매끄러운 전환 패턴 (배드엔딩 분위기는 FourthWallBreak Phase1에서 처리)
+    private IEnumerator TransitionToFourthWall()
     {
-        // sirenSFX / sfxSource 미할당(Inspector 연결 안 됨)이어도 안전하게 처리
+        // 효과음만 재생 (화면 암전 없이 자연스럽게 전환)
         try
         {
             if (sirenSFX != null && sfxSource != null)
@@ -50,12 +51,12 @@ public class BadEndSequence : MonoBehaviour
         }
         catch { /* 효과음 없이 진행 */ }
 
-        ScreenEffects.Instance?.FadeOut(blackoutDuration);
-        yield return new WaitForSeconds(blackoutDuration + 0.5f);
-        ScreenEffects.Instance?.ShowNoise(0f);
-
+        ScreenEffects.Instance?.ShowNoise(0f);  // 노이즈 해제
+        yield return new WaitForSeconds(blackoutDuration);
         if (fourthWallBreak != null)
             fourthWallBreak.gameObject.SetActive(true);
+        else
+            Debug.LogWarning("[BadEnd] FourthWallBreak를 씬에서 찾을 수 없습니다.");
     }
 
     static void EnsureManagers()

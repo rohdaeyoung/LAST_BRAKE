@@ -27,14 +27,15 @@ public class FourthWallBreak : MonoBehaviour
     [SerializeField] private CanvasGroup     messageCanvasGroup;
 
     [Header("Phase 1 — 타이밍")]
-    [SerializeField] private float bgmFadeOutDuration    = 2.0f;
-    [SerializeField] private float desaturateDuration    = 2.5f;
-    [SerializeField] private float messageFadeInDuration = 1.5f;
-    [SerializeField] private float messageHoldDuration   = 2.5f;  // 메시지 유지 시간
-    [SerializeField] private float transitionDuration    = 1.0f;  // 암전 전환
+    [SerializeField] private float bgmFadeOutDuration    = 0.7f;
+    [SerializeField] private float desaturateDuration    = 0.8f;
+    [SerializeField] private float messageFadeInDuration = 0.4f;
+    [SerializeField] private float messageHoldDuration   = 0.9f;  // 메시지 유지 시간
+    [SerializeField] private float transitionDuration    = 0.4f;  // 암전 전환 (+ 0.3 대기 = 0.7s)
 
     [Header("Phase 2 — 결말 화면 (Inspector 연결 없어도 런타임 빌드)")]
-    [SerializeField] private Sprite doyunPortrait;  // 캐릭터 초상 (없으면 텍스트만)
+    [SerializeField] private Sprite doyunPortrait;         // 캐릭터 초상 (없으면 텍스트만)
+    [SerializeField] private Sprite finalScreenBackground; // 최종 화면 배경 (미설정 시 씬 배경 자동 사용)
 
     private const string CORE_MESSAGE =
         "중독은 특별한 사람이 아니라,\n반복된 선택에서 시작됩니다.";
@@ -196,9 +197,30 @@ public class FourthWallBreak : MonoBehaviour
         scaler.matchWidthOrHeight  = 0.5f;
         finalScreen.AddComponent<GraphicRaycaster>();
 
-        // ── 전체 어두운 배경 ─────────────────────────────────────────────
-        var bg = MakeImage(finalScreen.transform, "BG", new Color(0.04f, 0.04f, 0.10f, 1f));
+        // ── 전체 배경 (씬 배경 스프라이트 재사용 → 스토리 분위기 유지) ─────
+        var bg = MakeImage(finalScreen.transform, "BG", Color.black);
         Stretch(bg.GetComponent<RectTransform>());
+
+        // 씬 배경 스프라이트 탐색: Inspector 할당 우선, 없으면 씬에서 자동 탐색
+        Sprite bgSprite = finalScreenBackground;
+        if (bgSprite == null)
+            bgSprite = FindSceneBackgroundSprite();
+
+        if (bgSprite != null)
+        {
+            bg.sprite         = bgSprite;
+            bg.type           = Image.Type.Simple;
+            bg.preserveAspect = false;   // 화면 전체 채우기
+            bg.color          = new Color(1f, 1f, 1f, 0.85f);  // 약간 어둡게
+        }
+        else
+        {
+            bg.color = new Color(0.04f, 0.04f, 0.10f, 1f);  // 폴백: 짙은 남색
+        }
+
+        // 반투명 그라디언트 오버레이 — 가독성 확보
+        var overlay = MakeImage(finalScreen.transform, "DarkOverlay", new Color(0f, 0f, 0f, 0.55f));
+        Stretch(overlay.GetComponent<RectTransform>());
 
         // ── ① 수치 패널 (오른쪽 상단, 대화창 스타일) ─────────────────────
         //   화면 우측 60% 영역 상단에 배치 (캐릭터 왼쪽 공간 확보)
@@ -258,7 +280,7 @@ public class FourthWallBreak : MonoBehaviour
         qTMP.text             = FINAL_QUESTION;
         qTMP.fontSize         = S_FontMain;
         qTMP.color            = Color.white;
-        qTMP.enableWordWrapping = true;
+        qTMP.textWrappingMode = TextWrappingModes.Normal;
         var qRT = qGO.GetComponent<RectTransform>();
         qRT.anchorMin = Vector2.zero; qRT.anchorMax = Vector2.one;
         qRT.offsetMin = new Vector2(24f, 16f);
@@ -632,6 +654,45 @@ public class FourthWallBreak : MonoBehaviour
         var all = FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (var t in all)
             if (t.name == goName) return t.gameObject;
+        return null;
+    }
+
+    /// <summary>
+    /// 씬에 있는 배경 Image 스프라이트를 자동 탐색.
+    /// "Background", "BG_" 로 시작하는 이름 우선, 없으면 전체화면 크기의 Image 중 첫 번째 사용.
+    /// </summary>
+    private static Sprite FindSceneBackgroundSprite()
+    {
+        var images = FindObjectsByType<Image>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+        // 1순위: 이름이 BG로 시작하거나 Background인 Image
+        foreach (var img in images)
+        {
+            if (img.sprite == null) continue;
+            string n = img.gameObject.name;
+            if (n.StartsWith("BG") || n.StartsWith("Background") || n.Contains("background"))
+                return img.sprite;
+        }
+
+        // 2순위: SpriteRenderer (씬에 배치된 배경 스프라이트)
+        var renderers = FindObjectsByType<SpriteRenderer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (var sr in renderers)
+        {
+            if (sr.sprite == null) continue;
+            string n = sr.gameObject.name;
+            if (n.StartsWith("BG") || n.StartsWith("Background"))
+                return sr.sprite;
+        }
+
+        // 3순위: 앵커가 full-stretch인 Image 중 스프라이트 있는 것
+        foreach (var img in images)
+        {
+            if (img.sprite == null) continue;
+            var rt = img.GetComponent<RectTransform>();
+            if (rt != null && rt.anchorMin == Vector2.zero && rt.anchorMax == Vector2.one)
+                return img.sprite;
+        }
+
         return null;
     }
 }

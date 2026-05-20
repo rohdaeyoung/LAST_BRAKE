@@ -7,8 +7,7 @@ public class NormalEndSequence : MonoBehaviour
 {
     [SerializeField] private DialogueData[]  endingDialogue;
     [SerializeField] private FourthWallBreak fourthWallBreak;
-    [SerializeField] private float           darkFadeDuration = 1.5f;
-    // darkRoomOverlay — Inspector 연결 불필요 (ScreenEffects.FadeOut으로 대체)
+    [SerializeField] private float           pauseDuration = 1.5f;  // 대화 종료 후 FourthWallBreak 전환 대기
 
     private void Awake()
     {
@@ -33,18 +32,19 @@ public class NormalEndSequence : MonoBehaviour
         if (DialogueManager.Instance != null && endingDialogue != null && endingDialogue.Length > 0)
             DialogueManager.Instance.StartSequence(endingDialogue, OnEndingDialogueComplete);
         else
-            StartCoroutine(NormalEndRoutine());
+            StartCoroutine(TransitionToFourthWall());
     }
 
-    public void OnEndingDialogueComplete() => StartCoroutine(NormalEndRoutine());
+    public void OnEndingDialogueComplete() => StartCoroutine(TransitionToFourthWall());
 
-    private IEnumerator NormalEndRoutine()
+    // 07_GoodEnd와 동일한 매끄러운 전환 패턴
+    private IEnumerator TransitionToFourthWall()
     {
-        // darkRoomOverlay 대신 ScreenEffects 페이드 사용 (Inspector 연결 불필요)
-        ScreenEffects.Instance?.FadeOut(darkFadeDuration * 0.6f);
-        yield return new WaitForSeconds(darkFadeDuration);
+        yield return new WaitForSeconds(pauseDuration);
         if (fourthWallBreak != null)
             fourthWallBreak.gameObject.SetActive(true);
+        else
+            Debug.LogWarning("[NormalEnd] FourthWallBreak를 씬에서 찾을 수 없습니다.");
     }
 
     static void EnsureManagers()

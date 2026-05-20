@@ -146,7 +146,7 @@ public class DialogueBootstrap : MonoBehaviour
         txtTMP.fontSize           = DIALOGUE_FONTSIZE;
         txtTMP.color              = DialogColor;
         txtTMP.lineSpacing        = 6f;
-        txtTMP.enableWordWrapping = true;
+        txtTMP.textWrappingMode = TextWrappingModes.Normal;
         txtTMP.overflowMode       = TextOverflowModes.Truncate;
         var txtRT = txtTf.GetComponent<RectTransform>();
         txtRT.anchorMin = Vector2.zero;
@@ -279,7 +279,7 @@ public class DialogueBootstrap : MonoBehaviour
         var txtTMP = txtGO.AddComponent<TextMeshProUGUI>();
         if (font != null) txtTMP.font = font;
         txtTMP.fontSize = DIALOGUE_FONTSIZE; txtTMP.color = DialogColor;
-        txtTMP.lineSpacing = 6f; txtTMP.enableWordWrapping = true;
+        txtTMP.lineSpacing = 6f; txtTMP.textWrappingMode = TextWrappingModes.Normal;
         txtTMP.overflowMode = TextOverflowModes.Truncate;
         var txtRT = txtGO.GetComponent<RectTransform>();
         txtRT.anchorMin = Vector2.zero; txtRT.anchorMax = Vector2.one;
@@ -329,7 +329,7 @@ public class DialogueBootstrap : MonoBehaviour
             if (font != null) lbl.font = font;
             lbl.fontSize = CHOICE_FONTSIZE; lbl.color = Color.white;
             lbl.alignment = TextAlignmentOptions.Center;
-            lbl.enableWordWrapping = true;
+            lbl.textWrappingMode = TextWrappingModes.Normal;
             var lRT = lblGO.GetComponent<RectTransform>();
             lRT.anchorMin = Vector2.zero; lRT.anchorMax = Vector2.one;
             lRT.offsetMin = new Vector2(16f, 8f); lRT.offsetMax = new Vector2(-16f, -8f);
