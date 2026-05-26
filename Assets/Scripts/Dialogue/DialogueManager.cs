@@ -112,7 +112,42 @@ public class DialogueManager : MonoBehaviour
         }
 
         DialogueLine line = data.lines[lineIndex];
-        CharacterAnimator.Instance?.SetEmotion(line.speaker, line.emotion);
+
+        // 캐릭터 표시: 현재 화자만 보이고 나머지 숨김
+        if (CharacterAnimator.Instance != null && !line.isMonologue)
+        {
+            CharacterAnimator.Instance.ShowOnlySpeaker(line.speaker);
+            CharacterAnimator.Instance.SetEmotion(line.speaker, line.emotion);
+        }
+        else if (CharacterAnimator.Instance != null && line.isMonologue)
+        {
+            CharacterAnimator.Instance.HideAll();
+        }
+
+        // ── 효과 트리거 ────────────────────────────────────
+        // FX 오버레이
+        if (line.fxEffect != FXType.None)
+            FXManager.Instance?.TriggerFX(line.fxEffect);
+
+        // CG 이미지 (표시 후 탭하면 대화 재개)
+        if (line.cgScene != CGType.None && CGViewer.Instance != null)
+        {
+            isTyping = true;          // CG 표시 중에는 스킵 방지
+            dialogueUI?.Hide();
+            var capturedLine = line;  // 람다 값 캡처 (struct이므로 복사)
+            CGViewer.Instance.ShowCG(line.cgScene, () =>
+            {
+                isTyping = false;
+                if (dialogueUI != null) dialogueUI.Show(capturedLine);
+                typingCoroutine = StartCoroutine(TypeLine(capturedLine.text));
+            });
+            return; // CG 콜백에서 TypeLine 시작
+        }
+
+        // OBJ 소품 컷인 (비동기 — 대화와 동시 진행)
+        if (line.objCutIn != ObjectType.None)
+            ObjectCutIn.Instance?.ShowObject(line.objCutIn);
+
         dialogueUI.Show(line);
         typingCoroutine = StartCoroutine(TypeLine(line.text));
     }

@@ -31,10 +31,10 @@ public class StatReportUI : MonoBehaviour
         // Inspector 미연결 시 씬 이름으로 자동 탐색
         AutoWireRefs();
 
-        // 초기 상태: 모두 "???"
-        SetPlaceholder(intLabel,    "판단력  ???");
-        SetPlaceholder(riskLabel,   "위험도  ???");
-        SetPlaceholder(addictLabel, "의존도  ???");
+        // 초기 상태: 모두 "???" — null 레퍼런스 방지
+        if (intLabel    != null) SetPlaceholder(intLabel,    "판단력  ???");
+        if (riskLabel   != null) SetPlaceholder(riskLabel,   "위험도  ???");
+        if (addictLabel != null) SetPlaceholder(addictLabel, "의존도  ???");
         if (intBar    != null) intBar.value    = 0;
         if (riskBar   != null) riskBar.value   = 0;
         if (addictBar != null) addictBar.value = 0;
