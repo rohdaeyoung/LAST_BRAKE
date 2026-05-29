@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAST BRAKE: 끝나지 않는 밤 — 게임 기획서</title>
+<style>
+  :root {
+    --bg:        #0d0d1a;
+    --bg2:       #12122a;
+    --bg3:       #1a1a36;
+    --card:      #16163a;
+    --border:    #2a2a5a;
+    --gold:      #f5d66e;
+    --gold2:     #c9a227;
+    --red:       #e53935;
+    --red2:      #ff6b6b;
+    --blue:      #5c85d6;
+    --green:     #4caf73;
+    --purple:    #9c6fce;
+    --text:      #dde3f0;
+    --muted:     #7a88aa;
+    --accent:    #2563eb;
+    --glow:      rgba(90,100,220,0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  /* ── 표지 ── */
+  .cover {
+    background: linear-gradient(160deg, #0a0a2e 0%, #12003a 50%, #1a000a 100%);
+    padding: 80px 60px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 2px solid var(--border);
+  }
+  .cover::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 50%, rgba(100,40,200,0.12) 0%, transparent 60%),
+      radial-gradient(circle at 80% 30%, rgba(200,40,80,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .cover-badge {
+    display: inline-block;
+    background: rgba(90,50,180,0.3);
+    border: 1px solid rgba(150,100,255,0.4);
+    color: #b09be8;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #ffffff 0%, var(--gold) 60%, #ff8a65 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .cover .subtitle {
+    font-size: 18px;
+    color: #9ea8c8;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+  }
+  .cover-meta {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .cover-meta span {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #aab4cc;
+  }
+  .cover-meta span strong { color: var(--gold); }
+  .core-msg {
+    display: inline-block;
+    max-width: 600px;
+    font-size: 17px;
+    color: #c8cfe8;
+    font-style: italic;
+    border-left: 3px solid var(--gold2);
+    padding: 12px 24px;
+    background: rgba(255,200,80,0.05);
+    border-radius: 0 8px 8px 0;
+    text-align: left;
+    line-height: 1.7;
+  }
+
+  /* ── 레이아웃 ── */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 32px 80px;
+  }
+
+  /* ── 섹션 ── */
+  section {
+    margin-top: 64px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    background: linear-gradient(135deg, var(--gold2), #e07b00);
+    color: #0d0d1a;
+    font-weight: 900;
+    font-size: 13px;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.3px;
+  }
+
+  /* ── 카드 ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+  .card h3 {
+    font-size: 16px;
+    color: var(--gold);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .card p { color: #b8c2d8; margin-bottom: 8px; }
+
+  /* ── 표 ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  th {
+    background: #1e1e42;
+    color: var(--gold);
+    font-weight: 700;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 2px solid var(--border);
+    font-size: 13px;
+    letter-spacing: 0.3px;
+  }
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: #cdd5e8;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  td:first-child { color: #e8ecf8; font-weight: 600; }
+
+  /* 수치 색상 */
+  .plus  { color: var(--green);  font-weight: 700; }
+  .minus { color: var(--red2);   font-weight: 700; }
+  .zero  { color: var(--muted); }
+
+  /* ── 인용구 / 강조 박스 ── */
+  .quote {
+    border-left: 4px solid var(--gold2);
+    background: rgba(245, 214, 110, 0.05);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-style: italic;
+    color: #d4c080;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .info-box {
+    background: rgba(37, 99, 235, 0.08);
+    border: 1px solid rgba(37, 99, 235, 0.3);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-size: 14px;
+    color: #9ab5e8;
+  }
+  .info-box strong { color: #c0d4f8; }
+  .warning-box {
+    background: rgba(229, 57, 53, 0.07);
+    border: 1px solid rgba(229, 57, 53, 0.3);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-size: 14px;
+    color: #f0a0a0;
+  }
+  .warning-box strong { color: #ff8a8a; }
+  .success-box {
+    background: rgba(76, 175, 115, 0.07);
+    border: 1px solid rgba(76, 175, 115, 0.3);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-size: 14px;
+    color: #90d4aa;
+  }
+  .success-box strong { color: #b0e8c0; }
+
+  /* ── 코드 블록 ── */
+  pre {
+    background: #0a0a1f;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', 'D2Coding', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #b0bce0;
+    margin: 12px 0;
+  }
+  code {
+    font-family: 'JetBrains Mono', 'D2Coding', 'Consolas', monospace;
+    background: rgba(255,255,255,0.07);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #c9d4f0;
+  }
+
+  /* ── 배지 ── */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    vertical-align: middle;
+  }
+  .badge-good   { background: rgba(76,175,115,0.2);  color: #6de898; border: 1px solid rgba(76,175,115,0.4); }
+  .badge-normal { background: rgba(92,133,214,0.2); color: #8ab4f8; border: 1px solid rgba(92,133,214,0.4); }
+  .badge-bad    { background: rgba(229,57,53,0.2);  color: #ff8a8a; border: 1px solid rgba(229,57,53,0.4); }
+  .badge-true   { background: rgba(156,111,206,0.2);color: #c9a0f8; border: 1px solid rgba(156,111,206,0.4); }
+
+  /* ── 캐릭터 그리드 ── */
+  .char-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .char-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .char-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    border: 2px solid var(--border);
+  }
+  .char-card h4 { color: var(--gold); font-size: 16px; margin-bottom: 4px; }
+  .char-card .role { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+  .char-card p { font-size: 13px; color: #9ea8c8; }
+
+  /* ── 엔딩 카드 ── */
+  .ending-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .ending-card {
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+  }
+  .ending-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .ending-card.good   { background: rgba(76,175,115,0.07);  border-color: rgba(76,175,115,0.3); }
+  .ending-card.good::before   { background: #4caf73; }
+  .ending-card.normal { background: rgba(92,133,214,0.07); border-color: rgba(92,133,214,0.3); }
+  .ending-card.normal::before { background: #5c85d6; }
+  .ending-card.bad    { background: rgba(229,57,53,0.07);  border-color: rgba(229,57,53,0.3); }
+  .ending-card.bad::before    { background: #e53935; }
+  .ending-card.true   { background: rgba(156,111,206,0.07);border-color: rgba(156,111,206,0.3); }
+  .ending-card.true::before   { background: #9c6fce; }
+  .ending-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .ending-card.good h4   { color: #6de898; }
+  .ending-card.normal h4 { color: #8ab4f8; }
+  .ending-card.bad h4    { color: #ff8a8a; }
+  .ending-card.true h4   { color: #c9a0f8; }
+  .ending-card .cond { font-size: 12px; color: var(--muted); margin-bottom: 8px; font-family: monospace; }
+  .ending-card p { font-size: 13px; color: #9ea8c8; }
+
+  /* ── FX 목록 ── */
+  .fx-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .fx-item {
+    background: #0e0e26;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .fx-item .fx-name { color: var(--gold); font-weight: 700; font-size: 13px; }
+  .fx-item .fx-desc { color: #8898b8; font-size: 12px; }
+
+  /* ── 전화 CTA ── */
+  .phone-cta {
+    background: linear-gradient(135deg, rgba(229,57,53,0.15), rgba(100,30,50,0.2));
+    border: 2px solid rgba(229,57,53,0.4);
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    margin: 24px 0;
+  }
+  .phone-num {
+    font-size: 48px;
+    font-weight: 900;
+    color: #ff6b6b;
+    letter-spacing: 4px;
+    display: block;
+    margin: 8px 0;
+  }
+  .phone-cta p { color: #c8a0a0; font-size: 14px; }
+
+  /* ── 흐름도 ── */
+  .flow { font-family: monospace; font-size: 13px; line-height: 1.9; color: #9eb0cc; }
+  .flow .node { color: #e8d4a0; font-weight: bold; }
+  .flow .arrow { color: #4a6080; }
+  .flow .end-good   { color: #6de898; font-weight: bold; }
+  .flow .end-normal { color: #8ab4f8; font-weight: bold; }
+  .flow .end-bad    { color: #ff8a8a; font-weight: bold; }
+  .flow .end-true   { color: #c9a0f8; font-weight: bold; }
+
+  /* ── 기술 태그 ── */
+  .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .tech-tag {
+    background: rgba(37,99,235,0.12);
+    border: 1px solid rgba(37,99,235,0.3);
+    color: #90b4f8;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+
+  /* ── 목차 ── */
+  .toc {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 40px 0 20px;
+    columns: 2;
+    column-gap: 32px;
+  }
+  .toc h3 { color: var(--gold); margin-bottom: 14px; font-size: 14px; letter-spacing: 1px; column-span: all; }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin: 6px 0; }
+  .toc a { color: #8898cc; text-decoration: none; font-size: 14px; }
+  .toc a:hover { color: var(--gold); }
+
+  /* ── 단계 타임라인 ── */
+  .timeline { list-style: none; position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 8px; top: 6px; bottom: 6px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold2), transparent);
+  }
+  .timeline li {
+    position: relative;
+    margin-bottom: 18px;
+    color: #b0bcd8;
+    font-size: 14px;
+  }
+  .timeline li::before {
+    content: '';
+    position: absolute; left: -24px; top: 6px;
+    width: 10px; height: 10px;
+    background: var(--gold2);
+    border-radius: 50%;
+  }
+  .timeline li strong { color: var(--gold); display: block; margin-bottom: 2px; }
+
+  /* ── 푸터 ── */
+  footer {
+    background: #080812;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 80px;
+  }
+  footer strong { color: #7a88cc; }
+
+  /* ── 반응형 ── */
+  @media (max-width: 700px) {
+    .cover { padding: 50px 24px 40px; }
+    .container { padding: 0 16px 60px; }
+    .fx-list { grid-template-columns: 1fr; }
+    .toc { columns: 1; }
+    .ending-grid { grid-template-columns: 1fr; }
+    .char-grid { grid-template-columns: repeat(2, 1fr); }
+    table { font-size: 12px; }
+    th, td { padding: 7px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 표지 -->
+<div class="cover">
+  <div class="cover-badge">Game Design Document · 2026</div>
+  <h1>LAST BRAKE</h1>
+  <div class="subtitle">끝나지 않는 밤</div>
+  <div class="cover-meta">
+    <span><strong>장르</strong> 선택형 비주얼 노벨</span>
+    <span><strong>엔진</strong> Unity 6 · URP</span>
+    <span><strong>플랫폼</strong> PC (Win · Mac · Linux)</span>
+    <span><strong>엔딩</strong> 4종</span>
+    <span><strong>언어</strong> 한국어</span>
+    <span><strong>개발</strong> 롭대영</span>
+  </div>
+  <div class="core-msg">
+    "중독은 특별한 사람이 아니라,<br>반복된 선택에서 시작됩니다."
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- 목차 -->
+  <div class="toc">
+    <h3>▸ 목차</h3>
+    <ol>
+      <li><a href="#s1">기획 의도</a></li>
+      <li><a href="#s2">게임 개요</a></li>
+      <li><a href="#s3">등장인물</a></li>
+      <li><a href="#s4">스토리 구조</a></li>
+      <li><a href="#s5">게임플레이 시스템</a></li>
+      <li><a href="#s6">엔딩 분기</a></li>
+      <li><a href="#s7">시각 효과 시스템</a></li>
+      <li><a href="#s8">사운드 디자인</a></li>
+      <li><a href="#s9">UI · UX 설계</a></li>
+      <li><a href="#s10">기술 구현</a></li>
+      <li><a href="#s11">개발 일정</a></li>
+      <li><a href="#s12">사회적 가치</a></li>
+    </ol>
+  </div>
+
+  <!-- 1. 기획 의도 -->
+  <section id="s1">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2>기획 의도</h2>
+    </div>
+    <div class="card">
+      <h3>왜 이 주제인가</h3>
+      <p>한국 청년층의 약물 관련 사건은 해마다 증가하고 있습니다. 그러나 "약물 중독"은 여전히 사회적 금기로 취급되어, 정작 예방 교육이 가장 필요한 10~20대에게 충분히 닿지 못하고 있습니다.</p>
+      <p style="margin-top:10px"><strong style="color:#e8d4a0">LAST BRAKE</strong>는 플레이어가 직접 선택의 주체가 되어 <em>"왜 사람들이 약물에 빠져드는가"</em>를 체험적으로 이해하도록 설계된 게임입니다. 도덕적 훈계가 아닌, <strong style="color:var(--gold)">반복된 작은 선택이 어떻게 큰 결과를 만드는지</strong>를 게임이라는 매체로 전달합니다.</p>
+    </div>
+    <div class="card">
+      <h3>게임이 아닌 게임</h3>
+      <p>이 작품은 단순한 오락 게임이 아닙니다. 마지막 장면에서 플레이어는 자신의 선택 결과 수치를 직면하고, 세 가지 선택지 중 하나로 <strong style="color:var(--red2)">실제 정신건강위기상담전화(1393)</strong>에 연결할 수 있습니다.</p>
+      <p style="margin-top:8px; color:var(--muted)">게임을 끝낸 플레이어가 현실의 누군가를 떠올리는 것, 그것이 목표입니다.</p>
+    </div>
+  </section>
+
+  <!-- 2. 게임 개요 -->
+  <section id="s2">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h2>게임 개요</h2>
+    </div>
+    <table>
+      <tr><th>항목</th><th>내용</th></tr>
+      <tr><td>제목</td><td>LAST BRAKE: 끝나지 않는 밤</td></tr>
+      <tr><td>장르</td><td>선택형 비주얼 노벨 (Visual Novel)</td></tr>
+      <tr><td>테마</td><td>청년 약물 중독 인식 개선</td></tr>
+      <tr><td>플랫폼</td><td>PC — Windows / macOS / Linux</td></tr>
+      <tr><td>플레이 시간</td><td>약 20~30분 (1회차 기준)</td></tr>
+      <tr><td>엔딩 수</td><td>4종 (Good · Normal · Bad · True)</td></tr>
+      <tr><td>언어</td><td>한국어</td></tr>
+      <tr><td>엔진</td><td>Unity 6 (6000.0.73f1) · URP · TextMeshPro</td></tr>
+      <tr><td>대상 연령</td><td>15세 이상 권장</td></tr>
+    </table>
+  </section>
+
+  <!-- 3. 등장인물 -->
+  <section id="s3">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h2>등장인물</h2>
+    </div>
+    <div class="char-grid">
+      <div class="char-card">
+        <div class="char-avatar" style="background:rgba(90,100,200,0.2); border-color:#5a6acc;">🙍</div>
+        <h4>도윤</h4>
+        <div class="role">주인공 · Protagonist</div>
+        <p>평범한 대학생. 클럽 문화에 처음 발을 들이며 이야기가 시작된다. 모든 선택이 도윤의 운명을 결정한다.</p>
+      </div>
+      <div class="char-card">
+        <div class="char-avatar" style="background:rgba(200,60,60,0.2); border-color:#c84040;">😈</div>
+        <h4>민재</h4>
+        <div class="role">선배 · Antagonist</div>
+        <p>도윤을 약물 세계로 끌어들이는 인물. 처음엔 친근하게 접근하지만 점점 요구가 커진다.</p>
+      </div>
+      <div class="char-card">
+        <div class="char-avatar" style="background:rgba(60,140,100,0.2); border-color:#3c8c64;">🙂</div>
+        <h4>하준</h4>
+        <div class="role">친구 · Guide</div>
+        <p>도윤의 친구. 위험을 경고하는 존재. 이성적 선택지의 근거가 되는 인물.</p>
+      </div>
+      <div class="char-card">
+        <div class="char-avatar" style="background:rgba(180,100,200,0.2); border-color:#b464c8;">💜</div>
+        <h4>서아</h4>
+        <div class="role">연인 · Support</div>
+        <p>도윤을 걱정하며 곁에 있으려는 인물. 노멀 엔딩에서 중요한 역할을 맡는다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 스토리 구조 -->
+  <section id="s4">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <h2>스토리 구조</h2>
+    </div>
+    <div class="card">
+      <h3>씬 구성 (총 11개)</h3>
+      <table>
+        <tr><th>씬 파일</th><th>내용</th></tr>
+        <tr><td><code>00_MainMenu</code></td><td>타이틀 화면</td></tr>
+        <tr><td><code>01_Step1_Prologue</code></td><td>프롤로그 — 민재의 클럽 초대. 첫 번째 선택의 출발점</td></tr>
+        <tr><td><code>02_Step2_Club</code></td><td>클럽 — 약물 첫 접촉. "한 번쯤은 괜찮겠지"의 시작</td></tr>
+        <tr><td><code>03_Step3_Morning</code></td><td>다음날 아침 — 현실 직시 vs 회피</td></tr>
+        <tr><td><code>04_Step4_Party</code></td><td>파티 — 더 깊어지는 중독의 갈림길</td></tr>
+        <tr><td><code>05_Step5_Collapse</code></td><td>무너짐 — 최후의 선택, 엔딩 분기 결정</td></tr>
+        <tr><td><code>07_GoodEnd</code></td><td>굿 엔딩 「새벽의 선택」</td></tr>
+        <tr><td><code>08_NormalEnd</code></td><td>노멀 엔딩 「연락처 삭제」</td></tr>
+        <tr><td><code>09_BadEnd</code></td><td>배드 엔딩 「끝나지 않는 밤」</td></tr>
+        <tr><td><code>10_TrueEnd</code></td><td>트루 엔딩 — 세 엔딩 클리어 후 해금. 4번째 벽 파괴</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>분기 흐름도</h3>
+      <pre class="flow">
+<span class="node">00_MainMenu</span>
+   │
+   ▼
+<span class="node">01_Prologue</span> ── "집에 갈게요" (+INT) ──┐
+   │                                   │
+   └─ "가볼까?" (+RISK +ADDICT) ────────┤
+                                        │
+<span class="node">02_Club</span> ──── 거절 (+INT) ─────────────┤
+   │                                   │
+   ├─ 한 번만 해본다 (+ADDICT) ─────────┤
+   └─ 적극 즐긴다 (−INT +RISK) ─────────┤
+                                        │
+<span class="node">03_Morning / 04_Party</span> ────────────────┤
+                                        │
+<span class="node">05_Collapse</span>
+   ├─ 경찰 신고 (INT≥70) ─────────→ <span class="end-good">07_GoodEnd</span>
+   ├─ 포기 ────────────────────────→ <span class="end-normal">08_NormalEnd</span>
+   └─ 복종 (강제 배드) ─────────────→ <span class="end-bad">09_BadEnd</span>
+
+세 엔딩 클리어 후 재시작 ───────────→ <span class="end-true">10_TrueEnd</span></pre>
+    </div>
+  </section>
+
+  <!-- 5. 게임플레이 시스템 -->
+  <section id="s5">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <h2>게임플레이 시스템</h2>
+    </div>
+    <div class="card">
+      <h3>핵심 수치 (3-Stat System)</h3>
+      <table>
+        <tr><th>수치</th><th>색상</th><th>초기값</th><th>의미</th></tr>
+        <tr><td>INT (판단력)</td><td style="color:#4caf73">초록</td><td>100</td><td>높을수록 이성적 선택 가능. ADDICT 60+ 시 특정 선택지 잠금</td></tr>
+        <tr><td>RISK (위험도)</td><td style="color:#ff9800">주황</td><td>0</td><td>높을수록 위험한 상황에 노출. 60+ 시 HUD 빨간색 전환</td></tr>
+        <tr><td>ADDICT (의존도)</td><td style="color:#9c6fce">보라</td><td>0</td><td>높을수록 약물 의존. 60+ 시 강제 선택 메커닉 발동</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Step 1 — 프롤로그 선택지</h3>
+      <table>
+        <tr><th>선택지</th><th>INT</th><th>RISK</th><th>ADDICT</th></tr>
+        <tr><td>집에 갈게요</td><td class="plus">+10</td><td class="minus">−5</td><td class="zero">0</td></tr>
+        <tr><td>가볼까? (클럽 동행)</td><td class="minus">−10</td><td class="plus">+15</td><td class="plus">+5</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Step 2 — 클럽 선택지</h3>
+      <table>
+        <tr><th>선택지</th><th>INT</th><th>RISK</th><th>ADDICT</th></tr>
+        <tr><td>거절한다</td><td class="plus">+15</td><td class="minus">−5</td><td class="zero">0</td></tr>
+        <tr><td>한 번만 해본다</td><td class="zero">0</td><td class="zero">0</td><td class="plus">+5</td></tr>
+        <tr><td>적극적으로 즐긴다</td><td class="minus">−20</td><td class="plus">+10</td><td class="plus">+20</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Step 3 — 다음날 아침 선택지</h3>
+      <table>
+        <tr><th>선택지</th><th>INT</th><th>RISK</th><th>ADDICT</th></tr>
+        <tr><td>끊겠다고 결심</td><td class="plus">+15</td><td class="zero">0</td><td class="minus">−5</td></tr>
+        <tr><td>다시 연락한다</td><td class="minus">−5</td><td class="plus">+5</td><td class="plus">+10</td></tr>
+        <tr><td>더 구한다</td><td class="minus">−10</td><td class="plus">+10</td><td class="plus">+20</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Step 4 — 파티 선택지</h3>
+      <table>
+        <tr><th>선택지</th><th>INT</th><th>RISK</th><th>ADDICT</th></tr>
+        <tr><td>함께한다</td><td class="minus">−10</td><td class="plus">+10</td><td class="plus">+10</td></tr>
+        <tr><td>더 강한 걸 요구</td><td class="minus">−20</td><td class="plus">+15</td><td class="plus">+25</td></tr>
+        <tr><td>민재 말을 따른다</td><td class="minus">−15</td><td class="plus">+10</td><td class="plus">+30</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Step 5 — 무너짐 (엔딩 결정)</h3>
+      <table>
+        <tr><th>선택지</th><th>조건</th><th>INT</th><th>RISK</th><th>ADDICT</th></tr>
+        <tr><td>경찰에 신고한다</td><td style="color:#f5d66e">INT ≥ 70 필요</td><td class="plus">+25</td><td class="minus">−20</td><td class="minus">−20</td></tr>
+        <tr><td>다 끝났어... (포기)</td><td style="color:var(--muted)">없음</td><td class="minus">−15</td><td class="plus">+10</td><td class="plus">+5</td></tr>
+        <tr><td>형 시키는 거 다 할게</td><td style="color:var(--red2)">강제 배드</td><td class="minus">−25</td><td class="plus">+20</td><td class="plus">+30</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>강제 선택 메커닉 (ADDICT ≥ 60)</h3>
+      <p>의존도가 60 이상이 되면 플레이어의 선택 자유가 제한됩니다.</p>
+      <ul style="margin-top:10px; padding-left:20px; color:#9ea8c8; font-size:14px; line-height:2">
+        <li>이성적 선택지 버튼이 <strong style="color:#ff6b6b">빨간색으로 틴팅</strong>되며 비활성화</li>
+        <li>1.2초 후 나쁜 선택지가 <strong style="color:#ff6b6b">자동으로 클릭되는 애니메이션</strong> 재생</li>
+        <li>"강제 클릭" SFX + 붉은 경고 플래시 동시 발동</li>
+        <li>의존도에 의해 선택권을 잃어가는 상태를 시각·청각으로 표현</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6. 엔딩 분기 -->
+  <section id="s6">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <h2>엔딩 분기</h2>
+    </div>
+
+    <div class="ending-grid">
+      <div class="ending-card good">
+        <h4>🌅 굿 엔딩 <span class="badge badge-good">Good</span></h4>
+        <div class="cond">INT ≥ 75 AND ADDICT ≤ 40</div>
+        <p>「새벽의 선택」<br>도윤이 스스로 멈출 수 있었던 결말. 회복과 새 출발.</p>
+      </div>
+      <div class="ending-card normal">
+        <h4>🌙 노멀 엔딩 <span class="badge badge-normal">Normal</span></h4>
+        <div class="cond">INT ≤ 50 AND RISK ≥ 60</div>
+        <p>「연락처 삭제」<br>상처를 안고 일상으로 돌아가는 결말. 서아의 역할이 중요.</p>
+      </div>
+      <div class="ending-card bad">
+        <h4>🌑 배드 엔딩 <span class="badge badge-bad">Bad</span></h4>
+        <div class="cond">ADDICT ≥ 80</div>
+        <p>「끝나지 않는 밤」<br>완전히 무너진 결말. 체포와 붕괴. 경찰 사이렌 SFX.</p>
+      </div>
+      <div class="ending-card true">
+        <h4>👁 트루 엔딩 <span class="badge badge-true">True</span></h4>
+        <div class="cond">세 엔딩 클리어 후 재시작</div>
+        <p>도윤이 직접 플레이어를 바라보는 4번째 벽 파괴. TrueEnd 전용 얼굴 응시 페이즈.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:8px">
+      <h3>엔딩 메타 시퀀스 — 3단계 구조 (전 엔딩 공통)</h3>
+      <table>
+        <tr><th>단계</th><th>내용</th><th>대상</th></tr>
+        <tr><td>Phase 1 · 메시지</td><td>BGM 페이드 → 도윤 응시 애니메이션 → 흑백화 → 핵심 메시지 → 암전</td><td>전 엔딩</td></tr>
+        <tr><td>Phase FACE · 응시</td><td>화면 가득 도윤 얼굴 + 글리치 + 표정 변화 → 탭으로 다음 단계</td><td>TrueEnd 전용</td></tr>
+        <tr><td>Phase 2 · 결말</td><td>스탯 수치 공개 애니메이션 → "이래도 계속 하겠습니까?" → 선택지 3개</td><td>전 엔딩</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 7. 시각 효과 -->
+  <section id="s7">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <h2>시각 효과 시스템</h2>
+    </div>
+    <div class="card">
+      <h3>FX 오버레이 (FXManager)</h3>
+      <p style="color:var(--muted); font-size:13px; margin-bottom:12px">대화 라인 단위로 자동 트리거. 텍스트 가독성 원칙: 대화 중 alpha 0.06 이하 유지.</p>
+      <div class="fx-list">
+        <div class="fx-item">
+          <span class="fx-name">RedWarning</span>
+          <span class="fx-desc">붉은 플래시 (0.15초 in / 0.45초 out) — 위험한 선택 직후 충격 연출</span>
+        </div>
+        <div class="fx-item">
+          <span class="fx-name">Glitch (상시)</span>
+          <span class="fx-desc">alpha 0.02~0.06, 미세 정적 — ADDICT 상승 시 배경 분위기</span>
+        </div>
+        <div class="fx-item">
+          <span class="fx-name">GlitchBurst</span>
+          <span class="fx-desc">alpha 최대 0.45, 1.5~2.5초 자동 종료 — 극적 순간 번쩍임</span>
+        </div>
+        <div class="fx-item">
+          <span class="fx-name">BlurPulse</span>
+          <span class="fx-desc">3회 반복 페이드 — 정신 혼란 · 약효 묘사</span>
+        </div>
+        <div class="fx-item">
+          <span class="fx-name">Vignette</span>
+          <span class="fx-desc">intensity 0.8 강화 — 긴장감 고조 구간</span>
+        </div>
+        <div class="fx-item">
+          <span class="fx-name">BreathingVignette</span>
+          <span class="fx-desc">0.25↔0.50, 5초 주기 cos 파형 — Phase 2 조용한 중독감 표현</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>소품 컷인 (ObjectCutIn) — 화면 우측 하단 슬라이드인/아웃</h3>
+      <table>
+        <tr><th>소품</th><th>등장 상황</th><th>SFX</th></tr>
+        <tr><td>📱 스마트폰</td><td>민재의 문자 수신</td><td>SFX_Phone_Notify</td></tr>
+        <tr><td>⏰ 시계 07:30</td><td>다음날 아침</td><td>(조용함)</td></tr>
+        <tr><td>💊 약병</td><td>약물 등장 장면</td><td>SFX_Pill_Rattle</td></tr>
+        <tr><td>💬 채팅 창</td><td>카카오톡 형식 대화</td><td>SFX_Phone_Send</td></tr>
+        <tr><td>📄 서류</td><td>경찰 신고서</td><td>SFX_ReportPaper</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 8. 사운드 디자인 -->
+  <section id="s8">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <h2>사운드 디자인</h2>
+    </div>
+    <div class="card">
+      <h3>BGM 3트랙</h3>
+      <table>
+        <tr><th>트랙</th><th>분위기</th><th>재생 씬</th></tr>
+        <tr><td>BGM_Normal_DarkAmbient</td><td>어두운 앰비언트</td><td>기본 씬 전체</td></tr>
+        <tr><td>BGM_Club_Muffled</td><td>먹먹한 클럽음</td><td>Step2 클럽 씬</td></tr>
+        <tr><td>BGM_Distorted_Risk</td><td>왜곡된 위기음</td><td>RISK 고조 씬</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>SFX 카테고리 (총 34개)</h3>
+      <table>
+        <tr><th>카테고리</th><th>클립</th><th>재생 시점</th></tr>
+        <tr><td rowspan="5">UI</td><td>SFX_UI_Select</td><td>일반 선택지 클릭</td></tr>
+        <tr><td>SFX_UI_DangerConfirm</td><td>위험한 선택지 (RISK·ADDICT 상승)</td></tr>
+        <tr><td>SFX_UI_ForcedClick</td><td>강제 선택 애니메이션</td></tr>
+        <tr><td>SFX_UI_Locked</td><td>잠긴 선택지 시도</td></tr>
+        <tr><td>SFX_UI_StatReveal</td><td>수치 공개 애니메이션마다</td></tr>
+        <tr><td rowspan="5">신체 반응</td><td>SFX_Heartbeat_Ramp</td><td>심장박동 가속 루프</td></tr>
+        <tr><td>SFX_Heartbeat_Slow</td><td>심장박동 느림 루프</td></tr>
+        <tr><td>SFX_Tinnitus_Ring</td><td>이명</td></tr>
+        <tr><td>SFX_Breath_Panic</td><td>공황 호흡</td></tr>
+        <tr><td>SFX_Electric_Tremor</td><td>전기 떨림</td></tr>
+        <tr><td rowspan="4">엔딩</td><td>SFX_TrueEnd_StareLoop</td><td>트루엔딩 얼굴 응시 루프</td></tr>
+        <tr><td>SFX_Police_Siren</td><td>배드엔딩 체포 장면</td></tr>
+        <tr><td>SFX_Ending_Choice_Restart</td><td>선택지① 다시 시작</td></tr>
+        <tr><td>SFX_Phone_Dial1393</td><td>선택지② 1393 연결</td></tr>
+      </table>
+    </div>
+    <div class="info-box">
+      <strong>오디오 자동 연결 시스템:</strong> Unity Editor 메뉴 <code>LAST BRAKE &gt; 31. SFX 전체 연결</code>을 실행하면 11개 씬 전체의 SFXManager에 37개 클립이 1클릭으로 자동 연결됩니다. <code>32. 오디오 연결 해제</code>로 무음 상태로 즉시 복원 가능.
+    </div>
+  </section>
+
+  <!-- 9. UI / UX -->
+  <section id="s9">
+    <div class="section-header">
+      <div class="section-num">9</div>
+      <h2>UI · UX 설계</h2>
+    </div>
+    <div class="card">
+      <h3>인게임 HUD (StatHUD)</h3>
+      <p style="color:var(--muted); font-size:13px; margin-bottom:12px">화면 최상단에 항상 표시. 씬 전환 후에도 DontDestroyOnLoad로 유지.</p>
+      <pre style="font-size:12px">┌──────────────────────────────────────────────────────────────┐
+│  이성 [████████░░░]  위험도 [████░░░░░░]  의존도 [███░░░░░░░]   │
+└──────────────────────────────────────────────────────────────┘</pre>
+      <ul style="margin-top:12px; padding-left:18px; color:#9ea8c8; font-size:13px; line-height:2">
+        <li>선택 후 0.6초 <strong style="color:#c8d4f0">부드러운 애니메이션</strong>으로 수치 변화</li>
+        <li>RISK / ADDICT 60+ 시 해당 바 <strong style="color:#ff6b6b">빨간색</strong> 전환</li>
+        <li>Unity Slider 대신 <code>anchorMax.x</code> 직접 제어 → 레이아웃 충돌 없음</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>결말 화면 (Phase 2) 레이아웃</h3>
+      <pre style="font-size:12px">┌─────────────────────────────────────────────────────────┐
+│                                                           │
+│  [도윤 얼굴]    │    — 게임 결과 —                          │
+│                 │    판단력  ████████░░  애니메이션 공개     │
+│  엔딩별 표정   │    위험도  ████░░░░░░                     │
+│   + 이름 배지   │    의존도  ███░░░░░░░                     │
+│                                                           │
+├─────────────────────────────────────────────────────────┤
+│  도윤: 이래도 계속 하겠습니까?                               │
+├─────────────────────────────────────────────────────────┤
+│   ①  다시 시작한다                                         │
+│   ②  누군가에게 연락한다  ◀── tel:1393 실제 연결           │
+│   ③  게임 종료                                             │
+└─────────────────────────────────────────────────────────┘</pre>
+    </div>
+  </section>
+
+  <!-- 10. 기술 구현 -->
+  <section id="s10">
+    <div class="section-header">
+      <div class="section-num">10</div>
+      <h2>기술 구현</h2>
+    </div>
+    <div class="tech-tags">
+      <span class="tech-tag">Unity 6 · URP</span>
+      <span class="tech-tag">C# Coroutine</span>
+      <span class="tech-tag">ScriptableObject</span>
+      <span class="tech-tag">DontDestroyOnLoad Singleton</span>
+      <span class="tech-tag">Runtime Canvas 생성</span>
+      <span class="tech-tag">Reflection 기반 에디터 툴</span>
+      <span class="tech-tag">TextMeshPro + NotoSansKR</span>
+      <span class="tech-tag">cos 파형 비네트 애니메이션</span>
+    </div>
+
+    <div class="card">
+      <h3>스크립트 아키텍처</h3>
+      <pre>Assets/Scripts/
+├── Core/
+│   ├── GameManager.cs         싱글턴 — 씬 전환, 엔딩 분기, 클리어 기록
+│   └── StatManager.cs         싱글턴 — INT/RISK/ADDICT 관리, 엔딩 계산
+│
+├── Dialogue/
+│   ├── DialogueManager.cs     대화 시퀀스, 선택지 분기, FX·CG·OBJ 트리거
+│   └── DialogueData.cs        ScriptableObject — 대화+선택지+효과 데이터
+│
+├── Characters/
+│   └── FourthWallBreak.cs     3단계 엔딩 메타 시퀀스
+│
+├── Effects/
+│   ├── FXManager.cs           FX 오버레이 (약한 상시 / 강한 버스트 분리)
+│   ├── SFXManager.cs          SFX 37개 클립 싱글턴
+│   ├── BGMController.cs       BGM 페이드인/아웃
+│   ├── CGViewer.cs            CG 전화면 이벤트 이미지
+│   ├── ObjectCutIn.cs         소품 컷인 슬라이드인/아웃
+│   └── ScreenEffects.cs       화면 페이드인/아웃
+│
+└── Editor/
+    ├── EffectLinker.cs        메뉴 20: 스프라이트 전체 자동 연결
+    └── AudioLinker.cs         메뉴 30/31/32: 오디오 자동 연결·해제</pre>
+    </div>
+
+    <div class="card">
+      <h3>핵심 기술 포인트</h3>
+      <table>
+        <tr><th>기술</th><th>설명</th></tr>
+        <tr><td>DontDestroyOnLoad 싱글턴</td><td>FXManager · SFXManager · BGMController · StatManager가 11개 씬 전체에서 상태를 유지</td></tr>
+        <tr><td>Runtime Canvas 생성</td><td>Phase 2 결말 화면 전체를 코드로 생성 → 씬 의존성 제거, 레이어 충돌 없음</td></tr>
+        <tr><td>anchorMax.x 수치 바</td><td>Slider+LayoutGroup 충돌 해결 → Fill 이미지의 anchorMax.x를 직접 lerp</td></tr>
+        <tr><td>글리치 이중 모드</td><td>상시(alpha 0.02~0.06) / 버스트(alpha 0.45, 자동 종료) 분리 → 가독성 유지</td></tr>
+        <tr><td>cos 파형 비네트</td><td><code>(1−cos(t/5s×2π))×0.5</code> → 숨쉬듯 출렁이는 조용한 긴장감</td></tr>
+        <tr><td>Reflection 에디터 툴</td><td>BindingFlags로 37개 AudioClip 필드를 이름 매핑하여 1클릭 자동 연결</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>해결한 주요 버그</h3>
+      <table>
+        <tr><th>#</th><th>증상</th><th>원인</th><th>해결</th></tr>
+        <tr><td>1</td><td>결말 화면 뒤로 씬 배경 비침</td><td>씬 배경 60% 투명도 사용</td><td>불투명 단색 배경으로 교체</td></tr>
+        <tr><td>2</td><td>글리치가 대화 텍스트 가림</td><td>alpha 최대 0.45 지속</td><td>상시 0.06 이하 제한, 버스트 분리</td></tr>
+        <tr><td>3</td><td>Phase 2 대화창 미표시</td><td>NullRef 예외로 코루틴 중단</td><td>null 체크 추가, alpha=1 즉시 표시</td></tr>
+        <tr><td>4</td><td>스탯 바 카드 overflow</td><td>중앙 앵커 계산 오류</td><td>상단 앵커 기준으로 전환</td></tr>
+        <tr><td>5</td><td>씬 전환 후 dangling Instance</td><td>OnDestroy 미처리</td><td><code>if (Instance==this) Instance=null</code></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 11. 개발 일정 -->
+  <section id="s11">
+    <div class="section-header">
+      <div class="section-num">11</div>
+      <h2>개발 일정</h2>
+    </div>
+    <ul class="timeline">
+      <li><strong>Phase 1</strong>기획 의도 수립 · 시나리오 작성 · 씬 구성 설계 · 등장인물 캐릭터 시트</li>
+      <li><strong>Phase 2</strong>핵심 시스템 개발 — StatManager · DialogueManager · ChoiceSystem · ScriptableObject 대화 데이터</li>
+      <li><strong>Phase 3</strong>효과 시스템 구현 — FXManager · CGViewer · ObjectCutIn · PostProcessing</li>
+      <li><strong>Phase 4</strong>엔딩 시퀀스 — FourthWallBreak 3단계 / Phase 2 결말 화면 Runtime 생성</li>
+      <li><strong>Phase 5</strong>사운드 시스템 — SFXManager 37개 클립 / AudioLinker 에디터 툴 / 모든 게임플레이 시점에 SFX 연결</li>
+      <li><strong>Phase 6</strong>버그 수정 · UI 정렬 · 텍스트 가독성 최적화 · 최종 테스트</li>
+      <li><strong>마감 — 2026년 6월 5일</strong></li>
+    </ul>
+  </section>
+
+  <!-- 12. 사회적 가치 -->
+  <section id="s12">
+    <div class="section-header">
+      <div class="section-num">12</div>
+      <h2>사회적 가치</h2>
+    </div>
+    <div class="card">
+      <h3>약물 중독 예방 인식 개선</h3>
+      <p>이 게임은 약물 중독 예방을 위한 <strong style="color:var(--gold)">인식 개선 콘텐츠</strong>로 기획되었습니다.</p>
+      <ul style="margin-top:12px; padding-left:18px; color:#9ea8c8; font-size:14px; line-height:2.2">
+        <li>플레이어가 <strong style="color:#c8d4f0">직접 체험</strong>하는 "반복된 선택의 결과"</li>
+        <li>수치로 <strong style="color:#c8d4f0">가시화</strong>되는 판단력 저하와 의존도 상승</li>
+        <li>강제 선택 메커닉으로 <strong style="color:#c8d4f0">자유의 상실</strong>을 체감</li>
+        <li>트루 엔딩의 4번째 벽 파괴로 <strong style="color:#c8d4f0">플레이어 자신</strong>에게 질문을 던짐</li>
+      </ul>
+    </div>
+    <div class="phone-cta">
+      <p style="font-size:14px; color:#c8a0a0; margin-bottom:8px">게임 마지막, 플레이어에게 실제로 연결되는 선택지</p>
+      <span class="phone-num">☎ 1393</span>
+      <p><strong style="color:#ffb0b0">정신건강위기상담전화</strong> — 24시간 무료 운영</p>
+      <p style="margin-top:12px; font-size:13px; color:#a08080">선택지 ② "누군가에게 연락한다"는 <code>tel:1393</code>으로 즉시 연결됩니다.<br>게임이 끝난 자리에서 플레이어가 현실을 떠올리게 만드는 장치입니다.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <strong>LAST BRAKE: 끝나지 않는 밤</strong><br>
+  <span style="margin-top:6px; display:block">Unity 6 · URP · TextMeshPro · C# &nbsp;|&nbsp; 개발: 롭대영 &nbsp;|&nbsp; 마감: 2026년 6월 5일</span>
+  <span style="margin-top:4px; display:block; font-size:12px">ⓒ 2026 rohdaeyoung · Made in Korea</span>
+</footer>
+
+</body>
+</html>
