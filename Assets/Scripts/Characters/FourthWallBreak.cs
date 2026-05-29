@@ -117,10 +117,12 @@ public class FourthWallBreak : MonoBehaviour
         yield return PlayStareAnimation();
 
         PostProcessingController.Instance?.DesaturateScreen(desaturateDuration);
+        SFXManager.Instance?.PlayDesaturate();
         yield return new WaitForSeconds(desaturateDuration);
 
         if (messageText != null) messageText.text = CORE_MESSAGE;
         yield return FadeCG(messageCanvasGroup, 0f, 1f, messageFadeInDuration);
+        SFXManager.Instance?.PlayMessageReveal();
         yield return new WaitForSeconds(messageHoldDuration);
 
         ScreenEffects.Instance?.FadeOut(transitionDuration);
@@ -207,6 +209,7 @@ public class FourthWallBreak : MonoBehaviour
         // ── 페이드 인 ─────────────────────────────────────────
         ScreenEffects.Instance?.FadeIn(0.6f);
         yield return FadeImg(faceImg, 0f, 1f, 0.6f);
+        SFXManager.Instance?.StartTrueEndStare();
 
         // 글리치 + 비네트 강화
         FXManager.Instance?.SetGlitchActive(true);
@@ -236,6 +239,8 @@ public class FourthWallBreak : MonoBehaviour
             if (Input.GetMouseButtonDown(0) ||
                 (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
             {
+                SFXManager.Instance?.PlayTrueEndTap();
+                SFXManager.Instance?.FadeOutLoop(0.5f);
                 _tapReceived = true;
                 break;
             }
@@ -690,13 +695,16 @@ public class FourthWallBreak : MonoBehaviour
         switch (idx)
         {
             case 0:
+                SFXManager.Instance?.PlayEndingRestart();
                 if (GameManager.Instance != null) GameManager.Instance.StartNewGame();
                 else UnityEngine.SceneManagement.SceneManager.LoadScene("00_MainMenu");
                 break;
             case 1:
+                SFXManager.Instance?.PlayDial1393();
                 Application.OpenURL(CONTACT_URL);
                 break;
             case 2:
+                SFXManager.Instance?.PlayEndingQuit();
                 if (GameManager.Instance != null) GameManager.Instance.QuitGame();
                 else
                 {

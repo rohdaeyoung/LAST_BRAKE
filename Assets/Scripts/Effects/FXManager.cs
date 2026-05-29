@@ -115,6 +115,7 @@ public class FXManager : MonoBehaviour
     public void PlayRedWarning()
     {
         if (imgRedWarning == null) return;
+        SFXManager.Instance?.PlayRedWarning();
         StartCoroutine(FlashRoutine(imgRedWarning,
             new Color(0.9f, 0f, 0f, 0.7f), 0.15f, 0.45f));
     }
@@ -143,6 +144,7 @@ public class FXManager : MonoBehaviour
     public void PlayGlitchBurst(float duration = 1.5f)
     {
         if (imgGlitch == null) return;
+        SFXManager.Instance?.PlayGlitchBurst();
         if (glitchRoutine != null) StopCoroutine(glitchRoutine);
         glitchRoutine = StartCoroutine(GlitchBurstRoutine(duration));
     }
@@ -162,6 +164,7 @@ public class FXManager : MonoBehaviour
     public void PlayBlurPulse(int count = 3)
     {
         if (imgBlurPulse == null) return;
+        SFXManager.Instance?.PlayBlurPulse();
         if (blurRoutine != null) StopCoroutine(blurRoutine);
         blurRoutine = StartCoroutine(BlurPulseRoutine(count));
     }

@@ -56,6 +56,7 @@ public class ChoiceSystem : MonoBehaviour
             {
                 choiceUI.AnimateForcedClick(i);
                 yield return new WaitForSeconds(0.6f);
+                SFXManager.Instance?.PlayUIForced();
                 SelectChoice(choices[i]);
                 yield break;
             }
@@ -67,14 +68,23 @@ public class ChoiceSystem : MonoBehaviour
     private void OnButtonClicked(int index)
     {
         if (isForcedMode) return; // 강제 모드 중 수동 클릭 무시
-        SelectChoice(currentChoices[index]);
+        var choice = currentChoices[index];
+        // 위험한 선택지 (RISK·ADDICT 상승) → 경고음, 그 외 → 일반 클릭음
+        if (choice.riskDelta > 0 || choice.addictDelta > 0)
+            SFXManager.Instance?.PlayUIDanger();
+        else
+            SFXManager.Instance?.PlayUISelect();
+        SelectChoice(choice);
     }
 
     private void SelectChoice(ChoiceData choice)
     {
         // INT 조건 미달 선택지 잠금 처리
         if (choice.requiresMinINT && StatManager.Instance.INT < choice.minINTValue)
+        {
+            SFXManager.Instance?.PlayUILocked();
             return;
+        }
 
         choiceUI.Hide();
         onChoiceMade?.Invoke(choice);

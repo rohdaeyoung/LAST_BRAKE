@@ -112,6 +112,7 @@ public class StatReportUI : MonoBehaviour
 
     private IEnumerator RevealStat(TextMeshProUGUI label, Slider bar, string text, float targetValue, Color color)
     {
+        SFXManager.Instance?.PlayStatReveal();
         if (label != null) { label.text = text; label.color = color; }
         // Slider의 Fill Area > Fill Image에 색상 적용 (null-safe)
         if (bar != null)

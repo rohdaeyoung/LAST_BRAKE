@@ -95,6 +95,20 @@ public class ObjectCutIn : MonoBehaviour
         objImage.sprite = sprite;
         canvasGO.SetActive(true);
 
+        // 소품별 SFX
+        var sfx = SFXManager.Instance;
+        if (sfx != null)
+        {
+            switch (type)
+            {
+                case ObjectType.PillBottle:  sfx.PlayPillRattle();   break;
+                case ObjectType.Smartphone:  sfx.PlayPhoneNotify();  break;
+                case ObjectType.ChatWindow:  sfx.PlayPhoneSend();    break;
+                case ObjectType.ReportPaper: sfx.PlayReportPaper();  break;
+                case ObjectType.Clock0730:   /* 조용함 — 효과 없음 */ break;
+            }
+        }
+
         if (showRoutine != null) StopCoroutine(showRoutine);
         showRoutine = StartCoroutine(ShowAndHide(dur));
     }
