@@ -7,7 +7,7 @@ public class NormalEndSequence : MonoBehaviour
 {
     [SerializeField] private DialogueData[]  endingDialogue;
     [SerializeField] private FourthWallBreak fourthWallBreak;
-    [SerializeField] private float           pauseDuration = 1.5f;  // 대화 종료 후 FourthWallBreak 전환 대기
+    [SerializeField] private float           blackoutDuration = 1.0f;  // BadEnd와 동일
 
     private void Awake()
     {
@@ -17,7 +17,8 @@ public class NormalEndSequence : MonoBehaviour
 
     private void Start()
     {
-        BGMController.Instance?.PlayNormal();
+        // 씬 시작 시 노이즈 효과 (BadEnd와 동일)
+        ScreenEffects.Instance?.ShowNoise(0.4f);
 
         // FourthWallBreak Inspector 미연결 시 씬에서 자동 탐색
         if (fourthWallBreak == null)
@@ -37,10 +38,11 @@ public class NormalEndSequence : MonoBehaviour
 
     public void OnEndingDialogueComplete() => StartCoroutine(TransitionToFourthWall());
 
-    // 07_GoodEnd와 동일한 매끄러운 전환 패턴
+    // BadEnd와 동일한 전환 패턴
     private IEnumerator TransitionToFourthWall()
     {
-        yield return new WaitForSeconds(pauseDuration);
+        ScreenEffects.Instance?.ShowNoise(0f);          // 노이즈 해제
+        yield return new WaitForSeconds(blackoutDuration);
         if (fourthWallBreak != null)
             fourthWallBreak.gameObject.SetActive(true);
         else
@@ -61,13 +63,11 @@ public class NormalEndSequence : MonoBehaviour
         {
             var go = new GameObject("DialogueBootstrap_Runtime");
             go.AddComponent<DialogueBootstrap>();
-            Debug.Log("[NormalEnd] DialogueBootstrap 런타임 생성");
         }
         if (DialogueManager.Instance == null)
         {
             var go = new GameObject("DialogueManager_Runtime");
             go.AddComponent<DialogueManager>();
-            Debug.Log("[NormalEnd] DialogueManager 런타임 생성");
         }
     }
 }
