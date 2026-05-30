@@ -54,9 +54,10 @@ public class BGMController : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        bgmSource            = GetComponent<AudioSource>() ?? gameObject.AddComponent<AudioSource>();
-        bgmSource.loop       = true;
-        bgmSource.volume     = bgmVolume;
+        bgmSource = GetComponent<AudioSource>();
+        if (bgmSource == null) bgmSource = gameObject.AddComponent<AudioSource>();
+        bgmSource.loop        = true;
+        bgmSource.volume      = bgmVolume;
         bgmSource.playOnAwake = false;
 
         // 씬 전환마다 자동 BGM 선택
