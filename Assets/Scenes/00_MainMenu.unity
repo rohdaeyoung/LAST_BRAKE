@@ -1112,40 +1112,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ffdbaea0861a488b99d0a38d4e80958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxUISelect: {fileID: 0}
-  sfxUIDangerConfirm: {fileID: 0}
-  sfxUIForcedClick: {fileID: 0}
-  sfxUILocked: {fileID: 0}
-  sfxUIStatReveal: {fileID: 0}
-  sfxRedWarningHit: {fileID: 0}
-  sfxGlitchBurst: {fileID: 0}
-  sfxBlurPulseWhoosh: {fileID: 0}
-  sfxMessageReveal: {fileID: 0}
-  sfxDesaturateDrop: {fileID: 0}
-  sfxHeartbeatRamp: {fileID: 0}
-  sfxHeartbeatSlow: {fileID: 0}
-  sfxTinnitusRing: {fileID: 0}
-  sfxBreathPanic: {fileID: 0}
-  sfxElectricTremor: {fileID: 0}
-  sfxPillRattle: {fileID: 0}
-  sfxPillBottleOpen: {fileID: 0}
-  sfxGlassClink: {fileID: 0}
-  sfxDoorKnock: {fileID: 0}
-  sfxReportPaper: {fileID: 0}
-  sfxPhoneNotify: {fileID: 0}
-  sfxPhoneSend: {fileID: 0}
-  sfxPhoneDial1393: {fileID: 0}
-  ambClub: {fileID: 0}
-  ambHospital: {fileID: 0}
-  ambIsolation: {fileID: 0}
-  ambRoomNight: {fileID: 0}
-  sfxPoliceSiren: {fileID: 0}
-  sfxCuffsMetal: {fileID: 0}
-  sfxRadioStatic: {fileID: 0}
-  sfxTrueEndStareLoop: {fileID: 0}
-  sfxTrueEndTapCut: {fileID: 0}
-  sfxEndingChoiceRestart: {fileID: 0}
-  sfxEndingChoiceQuit: {fileID: 0}
+  sfxUISelect: {fileID: 8300000, guid: cd97c5d7ade5dbf4cbf88fa1a3e460d6, type: 3}
+  sfxUIDangerConfirm: {fileID: 8300000, guid: 40097f8efa82cf448b88f98a86683dcc, type: 3}
+  sfxUIForcedClick: {fileID: 8300000, guid: 6885795d0fffcca48918a10368308d38, type: 3}
+  sfxUILocked: {fileID: 8300000, guid: e8159f06bad5dbc4d9b422c3e8f9bce9, type: 3}
+  sfxUIStatReveal: {fileID: 8300000, guid: a9164df72396a1145857048ccb5032cc, type: 3}
+  sfxRedWarningHit: {fileID: 8300000, guid: 0400ab64f53f00d4db0246c691d4d277, type: 3}
+  sfxGlitchBurst: {fileID: 8300000, guid: d4c94766ff9ed2c408f2cc25dae47566, type: 3}
+  sfxBlurPulseWhoosh: {fileID: 8300000, guid: 4dddf94fe6ea4934194b095fc627723d, type: 3}
+  sfxMessageReveal: {fileID: 8300000, guid: d0fca29c6b25a3b46bd620c0fcbb071c, type: 3}
+  sfxDesaturateDrop: {fileID: 8300000, guid: caad2646cc8c00c4cb8d9b69c38f94af, type: 3}
+  sfxHeartbeatRamp: {fileID: 8300000, guid: d5711715eb0cde84581926dbac63f08e, type: 3}
+  sfxHeartbeatSlow: {fileID: 8300000, guid: d18ddd7d1de9bc6488b9a5c57e4e75c0, type: 3}
+  sfxTinnitusRing: {fileID: 8300000, guid: 89c394f4ef195c14480ac70fff81fb96, type: 3}
+  sfxBreathPanic: {fileID: 8300000, guid: 4139b06aff5b23f45a57317c38423f05, type: 3}
+  sfxElectricTremor: {fileID: 8300000, guid: 2f8a343398ec229408aa28ccb48fb4de, type: 3}
+  sfxPillRattle: {fileID: 8300000, guid: 1cfc48909c197d2428950ad51131fcb1, type: 3}
+  sfxPillBottleOpen: {fileID: 8300000, guid: 3cd50ad33ee39f745bb6a9c8919f1e22, type: 3}
+  sfxGlassClink: {fileID: 8300000, guid: f3cac00b2e5ce5f4d9aabc1a43277a70, type: 3}
+  sfxDoorKnock: {fileID: 8300000, guid: c02a8f3d417c14341891bd915b617e7b, type: 3}
+  sfxReportPaper: {fileID: 8300000, guid: cbbbee46ac5f3e645b9430dd569534fc, type: 3}
+  sfxPhoneNotify: {fileID: 8300000, guid: c99ce64a6596d7746a2e34a90832b0c1, type: 3}
+  sfxPhoneSend: {fileID: 8300000, guid: 683f45a0241df8546b4c9f2e3ed14080, type: 3}
+  sfxPhoneDial1393: {fileID: 8300000, guid: 1c0937172b1cdbe4aa414af2a35befe5, type: 3}
+  ambClub: {fileID: 8300000, guid: 2f2257cb08d04c84aaa8b2ace31ea414, type: 3}
+  ambHospital: {fileID: 8300000, guid: 7b266305c03bcc947868b00156e9170b, type: 3}
+  ambIsolation: {fileID: 8300000, guid: ebf7a0ba8ffe2454fb6d880fb0926d8a, type: 3}
+  ambRoomNight: {fileID: 8300000, guid: cd63fa2f135d1ec4ba4a79c5ff442aa5, type: 3}
+  sfxPoliceSiren: {fileID: 8300000, guid: 852561c43caac0e4ea6173daabb06b5e, type: 3}
+  sfxCuffsMetal: {fileID: 8300000, guid: 544a55cb3c398364fa5f582ba3fa5c6c, type: 3}
+  sfxRadioStatic: {fileID: 8300000, guid: ab78d97833e91cd4491a09b3580083a6, type: 3}
+  sfxTrueEndStareLoop: {fileID: 8300000, guid: 1e8b20d98aa51ab409d05ef6736228cf, type: 3}
+  sfxTrueEndTapCut: {fileID: 8300000, guid: 393b3a9e1f34ce446957b2422fa43b54, type: 3}
+  sfxEndingChoiceRestart: {fileID: 8300000, guid: 6394eaa6d977ee445acc69d3f6d5bf86, type: 3}
+  sfxEndingChoiceQuit: {fileID: 8300000, guid: ccb25075b2314a746abeae0b3ec78133, type: 3}
   sfxVolume: 1
   loopVolume: 0.45
 --- !u!4 &1272669909
@@ -1837,10 +1837,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 086602149d4f34d2283e32e8945294aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clipNormal: {fileID: 0}
-  clipClub: {fileID: 0}
-  clipDistorted: {fileID: 0}
-  clipEerie: {fileID: 0}
+  clipNormal: {fileID: 8300000, guid: 0ff240c629a93694796412c1835406de, type: 3}
+  clipClub: {fileID: 8300000, guid: 7d910ad67bdd1784a94b93900a6f6b9d, type: 3}
+  clipDistorted: {fileID: 8300000, guid: 036c6659e424fb44e89c0bc70a57b705, type: 3}
+  clipEerie: {fileID: 8300000, guid: ebc1b0c6d8aada54b905fe5045dfaab6, type: 3}
   fadeDuration: 1.5
   bgmVolume: 0.7
   audioMixer: {fileID: 0}
