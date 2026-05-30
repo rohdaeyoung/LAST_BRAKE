@@ -32,6 +32,10 @@ public class StatManager : MonoBehaviour
         if (RISK >= 60)
             BGMController.Instance?.SetDistorted(true);
 
+        // ADDICT 70 이상: 으스스한 분위기 BGM으로 전환 (EerieBed)
+        if (ADDICT >= 70)
+            BGMController.Instance?.PlayEerie();
+
         if (ADDICT >= 60)
             ChoiceSystem.Instance?.EnableForcedChoice();
 

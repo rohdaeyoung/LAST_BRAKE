@@ -1121,6 +1121,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1557964207}
   m_CullTransparentMesh: 1
+--- !u!1 &1592718031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1592718033}
+  - component: {fileID: 1592718032}
+  m_Layer: 0
+  m_Name: BGMController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1592718032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592718031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 086602149d4f34d2283e32e8945294aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clipNormal: {fileID: 0}
+  clipClub: {fileID: 0}
+  clipDistorted: {fileID: 0}
+  clipEerie: {fileID: 0}
+  fadeDuration: 1.5
+  bgmVolume: 0.7
+  audioMixer: {fileID: 0}
+--- !u!4 &1592718033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592718031}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1661006284
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,6 +1603,86 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &1880490496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1880490498}
+  - component: {fileID: 1880490497}
+  m_Layer: 0
+  m_Name: SFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1880490497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880490496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ffdbaea0861a488b99d0a38d4e80958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxUISelect: {fileID: 0}
+  sfxUIDangerConfirm: {fileID: 0}
+  sfxUIForcedClick: {fileID: 0}
+  sfxUILocked: {fileID: 0}
+  sfxUIStatReveal: {fileID: 0}
+  sfxRedWarningHit: {fileID: 0}
+  sfxGlitchBurst: {fileID: 0}
+  sfxBlurPulseWhoosh: {fileID: 0}
+  sfxMessageReveal: {fileID: 0}
+  sfxDesaturateDrop: {fileID: 0}
+  sfxHeartbeatRamp: {fileID: 0}
+  sfxHeartbeatSlow: {fileID: 0}
+  sfxTinnitusRing: {fileID: 0}
+  sfxBreathPanic: {fileID: 0}
+  sfxElectricTremor: {fileID: 0}
+  sfxPillRattle: {fileID: 0}
+  sfxPillBottleOpen: {fileID: 0}
+  sfxGlassClink: {fileID: 0}
+  sfxDoorKnock: {fileID: 0}
+  sfxReportPaper: {fileID: 0}
+  sfxPhoneNotify: {fileID: 0}
+  sfxPhoneSend: {fileID: 0}
+  sfxPhoneDial1393: {fileID: 0}
+  ambClub: {fileID: 0}
+  ambHospital: {fileID: 0}
+  ambIsolation: {fileID: 0}
+  ambRoomNight: {fileID: 0}
+  sfxPoliceSiren: {fileID: 0}
+  sfxCuffsMetal: {fileID: 0}
+  sfxRadioStatic: {fileID: 0}
+  sfxTrueEndStareLoop: {fileID: 0}
+  sfxTrueEndTapCut: {fileID: 0}
+  sfxEndingChoiceRestart: {fileID: 0}
+  sfxEndingChoiceQuit: {fileID: 0}
+  sfxVolume: 1
+  loopVolume: 0.45
+--- !u!4 &1880490498
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880490496}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1999625042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1769,3 +1900,5 @@ SceneRoots:
   - {fileID: 681242094}
   - {fileID: 1773032025}
   - {fileID: 1999625044}
+  - {fileID: 1592718033}
+  - {fileID: 1880490498}

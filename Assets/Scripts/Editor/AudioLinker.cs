@@ -7,7 +7,7 @@ using System.Reflection;
 /// <summary>
 /// LAST BRAKE — 오디오 자동 연결 / 해제 Editor 도구
 ///
-/// 메뉴 30: BGM 클립 연결  — BGMController의 세 클립 자동 연결
+/// 메뉴 30: BGM 클립 연결  — BGMController의 네 클립 자동 연결 (Normal/Club/Distorted/Eerie)
 /// 메뉴 31: SFX 전체 연결 — SFXManager의 모든 클립 자동 연결
 /// 메뉴 32: 오디오 연결 해제 — 모든 AudioClip 참조를 null 처리 (무음 상태로 복원)
 /// </summary>
@@ -42,6 +42,7 @@ public class AudioLinker
         var clipNormal    = Load(BGM_PATH + "BGM_Normal_DarkAmbient_Loop.wav");
         var clipClub      = Load(BGM_PATH + "BGM_Club_Muffled_Loop.wav");
         var clipDistorted = Load(BGM_PATH + "BGM_Distorted_Risk_Loop.wav");
+        var clipEerie     = Load(BGM_PATH + "BGM_LastBrake_EerieBed_Loop.wav");  // 신규
 
         int total = 0;
         foreach (var scenePath in AllScenes)
@@ -52,6 +53,7 @@ public class AudioLinker
                 Set(bgm, "clipNormal",    clipNormal);
                 Set(bgm, "clipClub",      clipClub);
                 Set(bgm, "clipDistorted", clipDistorted);
+                Set(bgm, "clipEerie",     clipEerie);   // 신규
             });
             total += n;
             EditorSceneManager.SaveScene(scene);
@@ -59,7 +61,9 @@ public class AudioLinker
 
         EditorSceneManager.OpenScene("Assets/Scenes/00_MainMenu.unity");
         AssetDatabase.Refresh();
-        EditorUtility.DisplayDialog("✅ BGM 연결 완료", $"{total}개 씬에 BGM 클립 연결", "확인");
+        EditorUtility.DisplayDialog("✅ BGM 연결 완료",
+            $"{total}개 씬에 BGM 클립 연결\n" +
+            "Normal / Club / Distorted / Eerie(신규)", "확인");
     }
 
     // ════════════════════════════════════════════════════════════════
